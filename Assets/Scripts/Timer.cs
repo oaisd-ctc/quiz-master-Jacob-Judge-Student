@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,7 +7,11 @@ public class Timer : MonoBehaviour
 {
     [SerializeField] float timeToCompleteQuestion = 30f;
     [SerializeField] float timeToShowCorrectAnswer = 10f;
-    public bool isAnsweringQuestion = false;
+
+    public bool loadNextQuestion;
+    public float fillFraction;
+    
+    public bool isAnsweringQuestion;
     float timerValue;
     
      void Update()
@@ -14,14 +19,42 @@ public class Timer : MonoBehaviour
         UpdateTimer();
     }
 
+    public void CancelTimer()
+    {
+        timerValue = 0;
+    }
     void UpdateTimer()
     {
         timerValue -= Time.deltaTime;
 
-        if(timerValue <= 0)
+        if (isAnsweringQuestion)
         {
-            timerValue = timeToCompleteQuestion;
+            if (timerValue > 0)
+            {
+                fillFraction = timerValue / timeToCompleteQuestion; // 5/10 = 0.5
+            }
+            else
+            {
+                isAnsweringQuestion = false;
+                timerValue = timeToShowCorrectAnswer;
+            }
         }
-        Debug.Log(timerValue);
-    }
-}
+            else
+            {
+                if (timerValue > 0)
+                {
+                    fillFraction = timerValue / timeToShowCorrectAnswer;
+                }
+                else
+                {
+                    isAnsweringQuestion = true;
+                    timerValue = timeToCompleteQuestion;
+                    loadNextQuestion= true;
+                }
+
+            }
+        Debug.Log(isAnsweringQuestion + ": " + timerValue + " = " + fillFraction);
+        }
+    }  
+
+

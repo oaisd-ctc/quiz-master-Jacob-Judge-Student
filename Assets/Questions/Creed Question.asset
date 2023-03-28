@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e88edb9e911010648929deee1cafb4f8, type: 3}
-  m_Name: Kenway Question 1
+  m_Name: Creed Question
   m_EditorClassIdentifier: 
   question: 'Who was the name of the protaganist assassin from Assassin''s Creed:
     Black Flag?'
